@@ -10,7 +10,7 @@ app.use(cors({origin: "http://todoappirfanbhai.herokuapp.com"}));
 
 mongoose
   .connect(
-    process.env.MONGO_URI,
+    process.env.MONGO_URI || 'mongodb+srv://afzalimdadabro:19me19pass@cluster0.hlvqi.mongodb.net/todoApp?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
       useUnifiedTopology: true
