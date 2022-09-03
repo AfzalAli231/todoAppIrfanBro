@@ -6,7 +6,7 @@ const Todos = require("./todoModel");
 const path = require("path")
 
 app.use(epress.json());
-app.use(cors({origin: "https://todoappirfanbhai.herokuapp.com/"}))
+app.use(cors({origin: "http://todoappirfanbhai.herokuapp.com/"}))
 
 mongoose
   .connect(
