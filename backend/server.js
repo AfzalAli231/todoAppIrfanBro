@@ -1,17 +1,14 @@
 const epress = require("express");
-const cors = require("cors");
 const app = epress();
 const mongoose = require("mongoose");
 const Todos = require("./todoModel");
 const path = require("path")
 
 app.use(epress.json());
-app.use(cors({origin: "http://todoappirfanbhai.herokuapp.com/"}))
 
 mongoose
   .connect(
-    process.env.MONGO_URI ||
-      "mongodb+srv://afzalimdadabro:19me19pass@cluster0.hlvqi.mongodb.net/todoApp?retryWrites=true&w=majority",
+    process.env.MONGO_URI,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true
