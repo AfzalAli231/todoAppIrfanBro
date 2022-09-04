@@ -10,7 +10,7 @@ exports.deleteTodo = async (TodoID) => {
   if (!data) {
     throw new Error("Item not Found");
   } else {
-    throw new Error("Item Deleted");
+    return "Item Deleted";
   }
 };
 
