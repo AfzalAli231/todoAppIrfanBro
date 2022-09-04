@@ -24,12 +24,6 @@ mongoose
   });
 
 
-app.use(epress.static(path.join(__dirname, "../frontend/build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-});
-
 app.post("/create-item", async (req, res) => {
   try {
     const data = await Todos.create(req.body);
