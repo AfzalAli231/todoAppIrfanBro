@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import aios from "axios";
 
 export default function Form(props) {
   const inputValue = {
@@ -17,6 +18,16 @@ export default function Form(props) {
     props.onSubmit(state.todo);
     e.preventDefault();
     setState(inputValue);
+    setTimeout(()=> {
+  const todos = aios
+    .get("http://localhost:5000/get-items")
+    .then((item) => {
+      props.setData(item.data);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+    }, 200)
   };
 
     const { todo } = state;
