@@ -1,6 +1,6 @@
 const Todos = require("../models/todoModel")
 
-const createItem = async (req, res) => {
+exports.createItem = async (req, res) => {
   try {
     const data = await Todos.create(req.body);
     res.status(200).json(data);
@@ -9,7 +9,7 @@ const createItem = async (req, res) => {
   }
 };
 
-const deleteItem = async (req, res) => {
+exports.deleteItem = async (req, res) => {
   try {
     const data = await Todos.findByIdAndDelete(req.params.itemId);
     !data &&
@@ -25,7 +25,7 @@ const deleteItem = async (req, res) => {
   }
 };
 
-const editItem = async (req, res) => {
+exports.editItem = async (req, res) => {
   try {
     const data = await Todos.findByIdAndUpdate(req.params.itemId, req.body);
     res.status(200).json(data);
@@ -34,7 +34,7 @@ const editItem = async (req, res) => {
   }
 };
 
-const getAllItems = async (req, res) => {
+exports.getAllItems = async (req, res) => {
   try {
     const data = await Todos.find({});
     res.status(200).json(data);
@@ -43,19 +43,11 @@ const getAllItems = async (req, res) => {
   }
 };
 
-const getSingleItem = async (req, res) => {
+exports.getSingleItem = async (req, res) => {
   try {
     const data = await Todos.findOne({ _id: req.params.itemId });
     res.status(200).json(data);
   } catch (error) {
     res.status(400).send({ msg: error.message });
   }
-};
-
-module.exports = {
-  createItem,
-  deleteItem,
-  getAllItems,
-  editItem,
-  getSingleItem,
 };
