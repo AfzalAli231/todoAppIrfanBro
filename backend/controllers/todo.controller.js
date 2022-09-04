@@ -1,49 +1,30 @@
 const Todos = require("../models/todoModel")
 
 exports.createItem = async (body) => {
+  try {
     const data = await Todos.create(body);
     return data
-};
-
-exports.deleteItem = async (req, res) => {
-  try {
-    const data = await Todos.findByIdAndDelete(req.params.itemId);
-    !data &&
-      res
-        .status(400)
-        .json({ msg: `Item With Id Was Not Found: ${req.params.itemId}` });
-    data &&
-      res
-        .status(200)
-        .json({ msg: `Item Deleted With Id: ${req.params.itemId}` });
   } catch (error) {
-    res.status(400).send(error.message);
+    return error
   }
 };
 
-exports.editItem = async (req, res) => {
-  try {
-    const data = await Todos.findByIdAndUpdate(req.params.itemId, req.body);
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
+exports.deleteItem = async (itemId) => {
+    const data = await Todos.findByIdAndDelete(itemId);
+    if(!data) {return "Item not Found"}else{return "Item Deleted"}
 };
 
-exports.getAllItems = async (req, res) => {
-  try {
+exports.editItem = async (itemId, body) => {
+  const data = await Todos.findByIdAndUpdate(itemId, body);
+  return data;
+};
+
+exports.getAllItems = async () => {
     const data = await Todos.find({});
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(400).send({ msg: error.message });
-  }
+  return data;
 };
 
-exports.getSingleItem = async (req, res) => {
-  try {
-    const data = await Todos.findOne({ _id: req.params.itemId });
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(400).send({ msg: error.message });
-  }
+exports.getSingleItem = async (itemId) => {
+    const data = await Todos.findOne({ _id: itemId });
+    return data;
 };
