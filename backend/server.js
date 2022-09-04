@@ -3,7 +3,6 @@ const app = epress();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Todos = require("./todoModel");
-const path = require("path")
 
 app.use(epress.json());
 app.use(cors({origin: "http://localhost:3000"}));
