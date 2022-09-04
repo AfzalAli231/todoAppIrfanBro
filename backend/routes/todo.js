@@ -2,8 +2,12 @@ const ItemsController = require("../controllers/todo.controller");
 const router = require("express").Router();
 
 router.post("/create-item", async (req, res) => {
+    try{
     const data = await ItemsController.createItem(req.body);
     res.status(200).json(data);
+} catch {(error) => {
+res.status(400).json({message: error.message});
+}}
 }
 );
 
