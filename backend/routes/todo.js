@@ -1,7 +1,14 @@
 const ItemsController = require("../controllers/todo.controller");
 const router = require("express").Router();
 
-router.post("/create-item", ItemsController.createItem);
+router.post("/create-item", (req,res)=>{
+ try {
+    const data = await ItemsController.createItem(req.body);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 
 router.delete("/delete-item/:itemId", ItemsController.deleteItem);
 
