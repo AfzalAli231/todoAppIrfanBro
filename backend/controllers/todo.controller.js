@@ -1,11 +1,11 @@
 const Todos = require("../models/todoModel")
 
-exports.createItem = async (req, res) => {
+exports.createItem = async (body) => {
   try {
-    const data = await Todos.create(req.body);
-    res.status(200).json(data);
+    const data = await Todos.create(body);
+    return data
   } catch (error) {
-    res.status(400).send(error.message);
+    return error
   }
 };
 
