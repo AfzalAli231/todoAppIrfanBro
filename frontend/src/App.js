@@ -11,7 +11,7 @@ export default function App() {
     const items = aios.get("http://localhost:5000/get-items").then((item) => {
       setData(item.data);
     }).catch((err)=>{console.log(err.message);});
-  }, [])
+  })
   
   const handleSubmit = (newVal) => {
   const items = aios.post("http://localhost:5000/create-item", {item: newVal});
