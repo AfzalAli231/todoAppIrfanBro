@@ -1,6 +1,6 @@
 const Todos = require("../models/todoModel")
 
-exports.createItem = async (body) => {
+exports.createTodo = async (body) => {
   try {
     const data = await Todos.create(body);
     return data
@@ -9,22 +9,26 @@ exports.createItem = async (body) => {
   }
 };
 
-exports.deleteItem = async (itemId) => {
-    const data = await Todos.findByIdAndDelete(itemId);
-    if(!data) {return "Item not Found"}else{return "Item Deleted"}
+exports.deleteTodo = async (TodoID) => {
+  const data = await Todos.findByIdAndDelete(TodoID);
+  if (!data) {
+    return "Item not Found";
+  } else {
+    return "Item Deleted";
+  }
 };
 
-exports.editItem = async (itemId, body) => {
-  const data = await Todos.findByIdAndUpdate(itemId, body);
+exports.editTodo = async (TodoID, body) => {
+  const data = await Todos.findByIdAndUpdate(TodoID, body);
   return data;
 };
 
-exports.getAllItems = async () => {
-    const data = await Todos.find({});
+exports.getAllTodos = async () => {
+  const data = await Todos.find({});
   return data;
 };
 
-exports.getSingleItem = async (itemId) => {
-    const data = await Todos.findOne({ _id: itemId });
+exports.getSingleTodo = async (TodoID) => {
+    const data = await Todos.findOne({ _id: TodoID });
     return data;
 };
