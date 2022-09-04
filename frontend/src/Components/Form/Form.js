@@ -17,6 +17,9 @@ export default function Form(props) {
     props.onSubmit(state.todo);
     e.preventDefault();
     setState(inputValue);
+    setTimeout(() => {
+      window.reload();
+    }, 1000);
   };
 
     const { todo } = state;
