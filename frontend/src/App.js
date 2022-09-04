@@ -11,13 +11,12 @@ export default function App() {
     const items = aios.get("http://localhost:5000/get-items").then((item) => {
       setData(item.data);
     }).catch((err)=>{console.log(err.message);});
-  })
+  }, [])
   
   const handleSubmit = (newVal) => {
   const items = aios.post("http://localhost:5000/create-item", {item: newVal});
   };
   const handleRemove = (_id) => {
-    
   const items = aios.delete(`http://localhost:5000/delete-item/${_id}`);
   };
   const handleOnEdit = (editVal, _id) => {
@@ -27,13 +26,14 @@ export default function App() {
   };
     return (
       <div className="app">
-        <Form onSubmit={handleSubmit} />
+        <Form setData={setData} onSubmit={handleSubmit} />
         <h1 title="Todo List">Todo List</h1>
         {data.length === 0 ? (
           <h2>Nothing To Do</h2>
         ) : (
           <List
             todo={data}
+            setData={setData}
             onEdit={handleOnEdit}
             onDelete={handleRemove}
             count={data.length}
