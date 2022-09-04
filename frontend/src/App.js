@@ -11,22 +11,19 @@ export default function App() {
     const items = aios.get("http://localhost:5000/get-items").then((item) => {
       setData(item.data);
     }).catch((err)=>{console.log(err.message);});
-  })
+  }, [])
   
   const handleSubmit = (newVal) => {
   const items = aios.post("http://localhost:5000/create-item", {item: newVal});
-  console.log(items)
   };
   const handleRemove = (_id) => {
     
   const items = aios.delete(`http://localhost:5000/delete-item/${_id}`);
-  console.log(items);
   };
   const handleOnEdit = (editVal, _id) => {
     const items = aios.put(`http://localhost:5000/edit-item/${_id}`, {
       item: editVal,
     });
-    console.log(items);
   };
     return (
       <div className="app">
@@ -38,8 +35,8 @@ export default function App() {
           <List
             todo={data}
             onEdit={handleOnEdit}
-              onDelete={handleRemove}
-              count={data.length}
+            onDelete={handleRemove}
+            count={data.length}
           />
         )}
       </div>
