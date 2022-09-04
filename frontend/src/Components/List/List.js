@@ -3,7 +3,7 @@ import ListItem from '../ListItem/ListItem'
 
 export default class List extends Component {
   render() {
-    const { todo, onDelete, onEdit, count } = this.props;
+    const { todo, onDelete, onEdit, count, setData } = this.props;
     return (
       <>
         <ul>
@@ -12,6 +12,7 @@ export default class List extends Component {
               <ListItem
                 item={item}
                 key={index}
+                setData={setData}
                 id={index}
                 handleEdit={onEdit}
                 handleDelete={() => {
