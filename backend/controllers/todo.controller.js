@@ -1,8 +1,8 @@
 const Todos = require("../models/todoModel")
 
 exports.createTodo = async (body) => {
-    const data = await Todos.create(body);
-    return data
+    const data = await Todos.create({ Todo: body.item });
+    return data;
 };
 
 exports.deleteTodo = async (TodoID) => {
@@ -15,7 +15,7 @@ exports.deleteTodo = async (TodoID) => {
 };
 
 exports.editTodo = async (TodoID, body) => {
-  const data = await Todos.findByIdAndUpdate(TodoID, body);
+  const data = await Todos.findByIdAndUpdate(TodoID, {Todo: body.item})
   return data;
 };
 
