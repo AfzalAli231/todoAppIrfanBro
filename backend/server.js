@@ -1,81 +1,21 @@
-const epress = require("express");
-const app = epress();
+// Imports
+const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
-const Todos = require("./todoModel");
+const app = express();
+const connectDb = require("./db");
+const todoRoutes = require("./routes/todo")
 
-app.use(epress.json());
-app.use(cors({origin: "http://localhost:3000"}));
+// Use of Json
+app.use(express.json());
+// Cors Problems Solve
+app.use(cors({origin: "http://localhost:3000"}))
+// Routes
+app.use("/", todoRoutes);
 
-mongoose
-  .connect(
-    process.env.MONGO_URI || 'mongodb+srv://afzalimdadabro:19me19pass@cluster0.hlvqi.mongodb.net/todoApp?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
-  )
-  .then(() => {
-    console.log("MongoDb Connected!");
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+// Database Connection
+connectDb();
 
-
-app.post("/create-item", async (req, res) => {
-  try {
-    const data = await Todos.create(req.body);
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
-app.delete("/delete-item/:itemId", async (req, res) => {
-  try {
-    const data = await Todos.findByIdAndDelete(req.params.itemId);
-    !data &&
-      res
-        .status(400)
-        .json({ msg: `Item With Id Was Not Found: ${req.params.itemId}` });
-    data &&
-      res
-        .status(200)
-        .json({ msg: `Item Deleted With Id: ${req.params.itemId}` });
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
-app.put("/edit-item/:itemId", async (req, res) => {
-  try {
-    const data = await Todos.findByIdAndUpdate( req.params.itemId, req.body);
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
-app.get("/get-items", async (req, res) => {
-    try {
-        
-    const data = await Todos.find({});
-    res.status(200).json(data)
-    } catch (error) {
-    res.status(400).send({ msg: error.message });
-    }
-});
-
-app.get("/get-item/:itemId",  async (req, res) => {
-    try {
-    const data = await Todos.findOne({_id: req.params.itemId});
-    res.status(200).json(data)
-    } catch (error) {
-      res.status(400).send({ msg: error.message });
-    }
-});
-
+// App Listener
 app.listen(process.env.PORT || 5000, () => {
     console.log("Server runned")
 })
