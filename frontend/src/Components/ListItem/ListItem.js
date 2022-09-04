@@ -1,13 +1,25 @@
 import React, { useState } from 'react'
+import aios from "axios";
 
 export default function ListItem(props) {
   const [onEdit, setOnEdit] = useState(false);
-  const [editVal, setEditVal] = useState(props.item.item);
+  const [editVal, setEditVal] = useState(props.item.Todo);
 
   const onRemove = (_id) => {
     setTimeout(() => {
       props.handleDelete(_id);
     }, 200);
+    
+    setTimeout(() => {
+      const todos = aios
+        .get("http://localhost:5000/get-items")
+        .then((item) => {
+          props.setData(item.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }, 300);
   };
 
   const handleEditValue = (e) => {
@@ -19,15 +31,26 @@ export default function ListItem(props) {
   };
   const handleCancel = () => {
     if (editVal === "") {
-      setEditVal(props.item.item);
+      setEditVal(props.item.Todo);
     }
     setOnEdit(false);
   };
   const handleSave = () => {
     if (editVal === "") {
-      setEditVal(props.item.item);
+      setEditVal(props.item.Todo);
     } else {
       props.handleEdit(editVal, props.item._id);
+      
+    setTimeout(() => {
+      const todos = aios
+        .get("http://localhost:5000/get-items")
+        .then((item) => {
+          props.setData(item.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }, 100);
     }
     setOnEdit(false);
   };
@@ -62,7 +85,7 @@ export default function ListItem(props) {
       return (
         <>
           <li>
-            {item.item}
+            {item.Todo}
             <div className="row">
                <i
                 className="fa fa-pencil-alt"
