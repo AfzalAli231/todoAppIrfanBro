@@ -1,20 +1,16 @@
 const Todos = require("../models/todoModel")
 
 exports.createTodo = async (body) => {
-  try {
     const data = await Todos.create(body);
     return data
-  } catch (error) {
-    return error
-  }
 };
 
 exports.deleteTodo = async (TodoID) => {
   const data = await Todos.findByIdAndDelete(TodoID);
   if (!data) {
-    return "Item not Found";
+    throw new Error("Item not Found");
   } else {
-    return "Item Deleted";
+    throw new Error("Item Deleted");
   }
 };
 
