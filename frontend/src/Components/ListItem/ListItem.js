@@ -8,9 +8,6 @@ export default function ListItem(props) {
     setTimeout(() => {
       props.handleDelete(_id);
     }, 200);
-    setTimeout(() => {
-      window.reload();
-    }, 1000)
   };
 
   const handleEditValue = (e) => {
@@ -33,9 +30,6 @@ export default function ListItem(props) {
       props.handleEdit(editVal, props.item._id);
     }
     setOnEdit(false);
-    setTimeout(() => {
-      window.reload();
-    }, 1000);
   };
     const { item } = props;
     if (onEdit) {
