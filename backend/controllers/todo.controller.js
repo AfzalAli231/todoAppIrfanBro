@@ -1,12 +1,8 @@
 const Todos = require("../models/todoModel")
 
 exports.createItem = async (body) => {
-  try {
     const data = await Todos.create(body);
     return data
-  } catch (error) {
-    return error
-  }
 };
 
 exports.deleteItem = async (req, res) => {
